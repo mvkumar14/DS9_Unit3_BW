@@ -39,8 +39,10 @@ def song(song_id):
     curs = conn.cursor()
     song_row = curs.execute(f"SELECT * FROM songs WHERE track_id = '{song_id}'").fetchall()
     print(song_row[0][1])
+
     #model
-    # model = "some model"
+    with open('model.pkl','rb') as mod:
+        model = pickle.load(mod)
 
     #parameters to send to model (if necessary)
     # danceability = song_data['danceability']

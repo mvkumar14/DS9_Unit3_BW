@@ -1,1 +1,1 @@
-web: gunicorn TWITOFF:APP -t 120
+web: gunicorn test.py:app -t 120
