@@ -2,6 +2,7 @@ from flask import Flask, request, render_template, jsonify
 # import pandas as pd
 from flask_sqlalchemy import SQLAlchemy
 import sqlite3
+import pickle
 
 app = Flask(__name__)
 
@@ -41,15 +42,12 @@ def song(song_id):
     print(song_row[0][1])
 
     #model
-    with open('model.pkl','rb') as mod:
-        model = pickle.load(mod)
-
-    #parameters to send to model (if necessary)
-    # danceability = song_data['danceability']
-    # energy = song_data['energy']
+    # with open('model.pkl','rb') as mod:
+    #     model = pickle.load(mod)
 
     #output
-    # recommendations = model.predict(danceability, energy, etc)
+    # reccomendations = model.predict(song_id)
+    # print(reccomendations)
 
     # The implimentation of the model might be a jsonify_function
     # the model output would then be jsonified in a format

@@ -1,1 +1,1 @@
-web: gunicorn test.py:app -t 120
+web: gunicorn test:app -t 120
