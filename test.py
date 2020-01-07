@@ -56,7 +56,9 @@ def post_with_get_json():
     print(a['track_id'])
     if request.method == 'GET':
         return a
-    return render_template('echo.html',echo=a)
+    # render the template when testing locally, but just return
+    # the actual values when you deploy the application.
+    return a #render_template('echo.html',echo=a)
 
 @app.route('/post_query',methods =['GET'])
 def post_query():
