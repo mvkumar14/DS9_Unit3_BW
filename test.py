@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, jsonify
 import pandas as pd
 from flask_sqlalchemy import SQLAlchemy
 import sqlite3
@@ -19,34 +19,86 @@ app = Flask(__name__)
 
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///songs_df.sqlite3'
 #
+
+
 @app.route('/')
 def home():
     return render_template('home.html')
 
-@app.route('/song/<track_id>', methods = ['GET'])
-def song(track_id):
+
+@app.route('/song/<song_id>', methods = ['GET', 'POST'])
+def song(song_id):
     """Route for recommendations based on song selected."""
-    print(type(track_id))
-    #input
-    # curs.execute()
 
-    #get parameters:
-    # use song_id
-    # songs_df = SELECT * from songs WHERE df_id == song_id
-    # danceability = songs_df['danceability']
-    # energy = songs_df['energy']
+    #song_id = request.json['key']
+    song_id=str(song_id)
+    print(song_id)
 
-
+    # connecting to local database to retreive values
+    conn = sqlite3.connect('songs_df.sqlite3')
+    curs = conn.cursor()
+    song_row = curs.execute(f"SELECT * FROM songs WHERE track_id = '{song_id}'").fetchall()
+    print(song_row[0][1])
     #model
-    # model = "some pickled model"
+    # model = "some model"
+
+    #parameters to send to model (if necessary)
+    # danceability = song_data['danceability']
+    # energy = song_data['energy']
 
     #output
-    #should be 30 reccomendations
-    # recommendations = model.predict("parameters")
-    if request.method == 'POST':
-        test = request.get_json(force=True)
-        print(test)
-    return render_template('echo.html',echo=track_id)
+    # recommendations = model.predict(danceability, energy, etc)
+
+    # The implimentation of the model might be a jsonify_function
+    # the model output would then be jsonified in a format
+    # that front end would need.
+    # jsonify_function(function(song_id))
+
+    #The above is what you would return
+    return  str(song_row) #jsonify(reccomendations)
+
+@app.route('/favorites',methods = ['POST'])
+def favorites():
+    my_dict = request.get_json(force=True)
+    track_list = []
+    for i in favorites.values():
+        query = f"SELECT * FROM songs WHERE track_id = '{i}'"
+        song_row = curs.execute(query).fetchall()
+        song_rows.append(song_row[0])
+
+
+
+
+
+
+#
+# @app.route('/song/<track_id>', methods = ['GET','POST'])
+# def song(track_id):
+#     """Route for recommendations based on song selected."""
+#     print(type(track_id))
+#
+#     if request.method == 'POST':
+#         test = request.get_json(force=True)
+#         print(test)
+#     return render_template('echo.html',echo=track_id)
+#
+#     #input
+#     # curs.execute()
+#
+#     #get parameters:
+#     # use song_id
+#     # songs_df = SELECT * from songs WHERE df_id == song_id
+#     # danceability = songs_df['danceability']
+#     # energy = songs_df['energy']
+#
+#
+#     #model
+#     # model = "some pickled model"
+#
+#     #output
+#     #should be 30 reccomendations
+#     # recommendations = model.predict("parameters")
+
 
 @app.route('/post_get_json_test',methods=['POST','GET'])
 def post_with_get_json():
