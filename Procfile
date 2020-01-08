@@ -1,1 +1,1 @@
-web: gunicorn test:app -t 120
+web: gunicorn mvp:app -t 120
