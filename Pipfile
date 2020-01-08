@@ -12,6 +12,8 @@ gunicorn = "*"
 python-dotenv = "*"
 python-decouple = "*"
 heroku = "*"
+pandas = "*"
+sklearn = "*"
 
 [requires]
 python_version = "3.7"
