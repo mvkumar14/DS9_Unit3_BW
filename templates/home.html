@@ -1,0 +1,14 @@
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+      <title> Spotify Recs Home! </title>
+      <link rel="stylesheet" href="https://unpkg.com/picnic">
+  </head>
+  <form>
+    <select name='track_id'>
+          {% for song in Songs %}
+          <option value="{{ song.track_id }}"> {{ song.track_name }} </option>
+          {% endfor %}
+    </select>
+    <input type = "submit" name = "Select Song">
+  </form>

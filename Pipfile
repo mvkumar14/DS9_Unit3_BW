@@ -7,9 +7,13 @@ verify_ssl = true
 
 [packages]
 flask = "*"
-pandas = "*"
 flask-sqlalchemy = "*"
-sqlite3 = "*"
+gunicorn = "*"
+python-dotenv = "*"
+python-decouple = "*"
+sklearn = "*"
+pandas = "*"
+sqlalchemy = "*"
 
 [requires]
 python_version = "3.7"
