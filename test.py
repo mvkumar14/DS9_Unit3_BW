@@ -6,20 +6,6 @@ import pickle
 
 app = Flask(__name__)
 
-# DB = SQLAlchemy()
-#
-# df = pd.read_csv('SpotifyAudioFeaturesApril2019.csv')
-#
-# conn = sqlite3.connect('songs_df.sqlite3')
-#
-# df.to_sql('songs', conn, if_exists='replace')
-
-# class Song(DB.Model):
-#     """ Model for song entry in database """
-#     id = DB.Column(DB.STring(30))
-
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///songs_df.sqlite3'
-#
 
 
 @app.route('/')

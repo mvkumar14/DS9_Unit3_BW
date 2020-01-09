@@ -1,12 +1,14 @@
 from flask import Flask, request, render_template, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from sklearn.neighbors import NearestNeighbors
-from random import sample
+from sqlalchemy.ext.automap import automap_base
+from sqlalchemy.orm import Session
+from sqlalchemy import create_engine, MetaData
 import pandas as pd
 import numpy as np
 import json
 import pickle
-import sqlite3
+
 
 df = pd.read_csv("https://raw.githubusercontent.com/Build-Week-Spotify-Song-Suggester-1/Data-science/master/MusicWithGenresFiltered.csv")
 def process_input(song_id,return_json = True):
@@ -25,9 +27,14 @@ def process_input(song_id,return_json = True):
 
 app = Flask(__name__)
 
+app.config['SQLALCHEMY_DATABASE_URI']= 'sqlite:///songs_df.sqlite3'
+db = SQLAlchemy(app)
+Songs_tbl = db.Table('songs', db.metadata, autoload=True, autoload_with=db.engine)
+Songs = db.session.query(Songs_tbl).all()
+
 @app.route('/')
 def home():
-    return render_template('home.html')
+    return render_template('home.html', Songs=Songs)
 
 
 @app.route('/song/<song_id>', methods = ['GET'])

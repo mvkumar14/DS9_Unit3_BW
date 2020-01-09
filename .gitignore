@@ -131,3 +131,10 @@ dmypy.json
 # Old csv files
 SpotifyAudioFeaturesNov2018.csv
 SpotifyAudioFeaturesApril2019.csv
+
+# Scratch file for testing work
+scratch.py
+
+# Database files not needed anymore:
+populate_db.py
+songs_df.sqlite3
